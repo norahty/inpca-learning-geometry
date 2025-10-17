@@ -22,12 +22,12 @@ Rather than measuring performance alone, this approach focuses on the **geometri
 ---
 ## Concept
 
-Let \( p_t(x) \) denote the model’s predictive distribution at training step \( t \).  
+Let $\( p_t(x) \)$ denote the model’s predictive distribution at training step $\( t \)$.  
 InPCA constructs an embedding based on pairwise **Hellinger inner products** between checkpoints:
 
-\[
+$\[
 \langle p_i, p_j \rangle_H = \sum_x \sqrt{p_i(x)\, p_j(x)}.
-\]
+\]$
 
 After double-centering the corresponding kernel matrix, the top principal components yield coordinates that preserve **information-geometric distances** between learning states.  
 This provides a quantitative and visual representation of the model’s trajectory through probability space.
