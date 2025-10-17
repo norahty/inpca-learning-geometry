@@ -19,11 +19,11 @@ Instead of tracking loss or accuracy, this framework maps each model checkpoint 
 
 The core method applies the **Hellinger inner product** between model output distributions at different checkpoints:
 
-\[
+$\[
 \langle p_i, p_j \rangle_H = \sum_x \sqrt{p_i(x) p_j(x)}
-\]
+\]$
 
-These similarities are then double-centered to construct an **information-geometric embedding**, where trajectories of training models appear as **smooth curves** (“highways”) in low-dimensional space.  
+These similarities are then double-centered to construct an **information-geometric embedding**, where trajectories of training models appear as **smooth curves** in low-dimensional space.  
 
 This visualization captures:
 - early-stage collapse of model predictions near uniformity,  
@@ -35,8 +35,8 @@ This visualization captures:
 ## 🔍 What It Shows
 
 - **Dense-Early Checkpoints:** captures fast initial changes in geometry.  
-- **Highway Patterns:** distinct endpoints form smooth low-curvature paths.  
-- **Forward vs. Backward Asymmetry:** direction-dependent curvature and convergence.  
+- **Patterns:** distinct endpoints form smooth low-curvature paths.  
+- **Forward vs. Backward Trejectories:** direction-dependent curvature and convergence.  
 - **Interactive Visualization:** 3D toggles for endpoint, layer type, and training direction.
 
 ---
@@ -52,9 +52,9 @@ This visualization captures:
 ## 📊 Output Example
 
 - **Static Panels:** 2-D projections of InPCA embeddings  
-- **Interactive 3-D Highways:** draggable HTML visualization with endpoint toggles  
+- **Interactive 3-D plots:** draggable HTML visualization with endpoint toggles  
 
-*(Figures omitted here for compactness. Representative results include clear “highways” connecting uniform baselines to learned endpoints.)*
+*(Representative results include clear paths connecting uniform baselines to learned endpoints.)*
 
 ---
 
