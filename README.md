@@ -1,72 +1,53 @@
-# InPCA Trajectories: A Visualization Tool for Learning Dynamics
+# InPCA Trajectories: Understanding Learning Dynamics via Information Geometry
 
 **Author:** Nora Han  
-**Status:** Research Tool (Code available upon request)  
+**Status:** Research Tool — Code available upon request  
 **Last updated:** October 2025  
 
 ---
 
-## 🧭 Overview
+## Overview
 
-This repository introduces a research tool for **visualizing learning trajectories** in neural networks through the lens of **information geometry**.  
-It uses **Information Principal Component Analysis (InPCA)** — a nonlinear embedding of probability distributions — to reveal how model predictions evolve across training.
-
-Instead of tracking loss or accuracy, this framework maps each model checkpoint into a **geometric space of probability outputs**, showing how learning “moves” through that space over time.
+This project studies **how deep networks learn over time** by examining their trajectories through an **information-geometric lens**.  
+It uses *Information PCA (InPCA)* to embed probability distributions produced by a neural network at different training stages, allowing researchers to visualize and analyze how the model’s output structure evolves during learning.
 
 ---
 
-## 💡 Core Idea
+## Goal
 
-The core method applies the **Hellinger inner product** between model output distributions at different checkpoints:
+The goal of this tool is to provide an interpretable framework for **understanding the trajectories learned by deep networks** — how model predictions, viewed as probability distributions, move through space as training progresses.  
 
-$\[
-\langle p_i, p_j \rangle_H = \sum_x \sqrt{p_i(x) p_j(x)}
-\]$
-
-These similarities are then double-centered to construct an **information-geometric embedding**, where trajectories of training models appear as **smooth curves** in low-dimensional space.  
-
-This visualization captures:
-- early-stage collapse of model predictions near uniformity,  
-- divergence toward distinct endpoint solutions, and  
-- directional asymmetries between *forward* (learning toward data) and *backward* (returning to baseline) optimization.
+Rather than measuring performance alone, this approach focuses on the **geometric organization** of learning: how representations change, stabilize, or diverge as optimization proceeds.
 
 ---
 
-## 🔍 What It Shows
+## Method Summary
 
-- **Dense-Early Checkpoints:** captures fast initial changes in geometry.  
-- **Patterns:** distinct endpoints form smooth low-curvature paths.  
-- **Forward vs. Backward Trejectories:** direction-dependent curvature and convergence.  
-- **Interactive Visualization:** 3D toggles for endpoint, layer type, and training direction.
-
----
-
-## ⚙️ Example Use Cases
-
-- Studying how *different training datasets or targets* lead to diverging representational geometries.  
-- Exploring *alignment* or *collapse* between forward and backward optimization phases.  
-- Visualizing the *shared manifold* connecting multiple trained solutions.  
+1. **Collect model checkpoints** at multiple training steps.  
+2. **Convert outputs to probability distributions** (e.g., softmax predictions).  
+3. **Compute pairwise Hellinger similarities** between checkpoints.  
+4. **Apply double-centering** to obtain the InPCA embedding.  
+5. **Visualize trajectories** in low-dimensional space to study learning structure.
 
 ---
 
-## 📊 Output Example
+## Applications
 
-- **Static Panels:** 2-D projections of InPCA embeddings  
-- **Interactive 3-D plots:** draggable HTML visualization with endpoint toggles  
-
-*(Representative results include clear paths connecting uniform baselines to learned endpoints.)*
+- Studying how networks move from random initialization toward structured solutions.  
+- Comparing learning dynamics across different training objectives or architectures.  
+- Understanding representational changes during optimization.  
 
 ---
 
-## 🔒 Code Availability
+## Code Availability
 
-The implementation includes:
-- Training utilities for grouped endpoints and bidirectional trajectories  
-- InPCA embedding and eigen-analysis modules  
-- Interactive Plotly-based visualization engine  
+The full implementation includes:
+- Checkpoint collection tools  
+- InPCA embedding computation  
+- 2-D and 3-D visualization interfaces  
 
-The **full source code is available upon request for research or educational purposes**.  
-To request access, please contact:
+The code is **available upon request** for research and educational use.  
+Please contact:
 
 📧 **norahty [at] seas.upenn.edu**
 
