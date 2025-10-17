@@ -56,7 +56,3 @@ Please contact:
 ## 🧩 Reference
 
 K.N. Quinn, C.B. Clement, F. De Bernardis, M.D. Niemack, & J.P. Sethna, Visualizing probabilistic models and data with Intensive Principal Component Analysis, Proc. Natl. Acad. Sci. U.S.A. 116 (28) 13762-13767, https://doi.org/10.1073/pnas.1817218116 (2019).
-
----
-
-*All content © 2025 Nora Han. This project is for research and educational use only.*
