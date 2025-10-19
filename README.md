@@ -1,88 +1,81 @@
-# InPCA Trajectories: Understanding Learning Dynamics via Information Geometry
+# Trajectory Auditor (InPCA): Measure-Based Visualization of Iterative Algorithm Dynamics
 
 **Author:** Nora Han  
-**Status:** Research Tool — Code available upon request  
-**Last updated:** October 2025  
+**Status:** Research tool — code available upon request  
+**Last updated:** October 2025
 
 ---
 
 ## Overview
 
-This project studies **how deep networks learn over time** by examining their trajectories through an **information-geometric lens**.  
-It uses *Information PCA (InPCA)* to embed probability distributions produced by a neural network at different training stages, allowing researchers to visualize and analyze how the model’s output structure evolves during learning.
+This tool visualizes how **probability outputs** from an iterative procedure evolve over time.  
+Given checkpoints of any model or process that produces probability vectors on a fixed probe set, it embeds those distributions with **InPCA** (using a **Hellinger** kernel) and reveals the **trajectory** the procedure traces through the space of probability measures.
+
+**What you can see**
+- convergence vs. cycling (last-iterate vs. averaged behavior)  
+- low-dimensional organization of states  
+- phase changes across training/algorithmic conditions
+
+> Works with *any* procedure that emits probability vectors (classifiers, probabilistic algorithms, repeated games).  
+> No dependence on any specific architecture.
 
 ---
 
-## Goal
+## Why this matters
 
-The goal of this tool is to provide an interpretable framework for **understanding the trajectories learned by deep networks** — how model predictions, viewed as probability distributions, move through space as training progresses.  
-
-Rather than measuring performance alone, this approach focuses on the **geometric organization** of learning: how representations change, stabilize, or diverge as optimization proceeds.
+The goal is **legibility**: when dynamics exhibit regularity (stability, low dimension, repeatable returns), explanations stop being post-hoc stories and start looking like **claims you can justify**.  
+This tool provides quantitative, visual evidence for such regularities.
 
 ---
-## Concept
 
-Let $\( p_t(x) \)$ denote the model’s predictive distribution at training step $\( t \)$.  
-InPCA constructs an embedding based on pairwise **Hellinger inner products** between checkpoints:
+## Method (one page)
 
+Let $\(p_t(x)\)$ be the predictive distribution at step $\(t\)$ on a fixed probe set $\(X\)$.  
+Define the Hellinger inner product  
 $\[
-\langle p_i, p_j \rangle_H = \sum_x \sqrt{p_i(x)\, p_j(x)}.
+\langle p_i, p_j \rangle_H \;=\; \sum_{x\in X} \sqrt{p_i(x)\,p_j(x)} .
 \]$
 
-After double-centering the corresponding kernel matrix, the top principal components yield coordinates that preserve **information-geometric distances** between learning states.  
-This provides a quantitative and visual representation of the model’s trajectory through probability space.
+1. Build the Hellinger similarity matrix \(K\) over checkpoints.  
+2. Double-center $\(K\)$ to obtain a Gram matrix.  
+3. Eigen-decompose to get **InPCA** coordinates (top components).  
+4. Plot trajectories and diagnostics (2D/3D) across time or conditions.
+
+**Notes.**  
+- The **measure space** is the underlying probability space $\( (X,\mathcal F,\mu) \)$.  
+- “Hellinger geometry” here means distances/angles **on the set of probability measures**, not the base space $\(X\)$.
 
 ---
 
-## Method Summary
+## Quick Start
 
-1. Collect model checkpoints at selected training steps.  
-2. Compute predicted probability vectors on a fixed probe set.  
-3. Build the Hellinger-based similarity matrix and apply double-centering.  
-4. Perform eigen-decomposition to obtain InPCA coordinates.  
-5. Visualize trajectories across time or training conditions.
+1. Collect probability vectors at chosen checkpoints on a fixed probe set.  
+2. Run `inpca_embed.py` to compute InPCA coordinates (Hellinger + SVD).  
+3. Use `plot_trajectory.py` for interactive 2D/3D visualization (Plotly).  
+
+*Environment:* Python ≥3.10, NumPy, SciPy, scikit-learn, Plotly, Pandas.
 
 ---
 
-## Example Results
+## Examples
 
-### 1. MNIST Training Trajectories
-Visualization of multiple MLPs trained on distinct MNIST subsets.  
-Each curve represents the evolution of output probabilities projected into InPCA space.
+### 1) Image classification (MNIST)  
+Multiple models trained on different subsets; each curve is the evolution of output probabilities projected into InPCA space.
+
 
 <img width="876" height="452" alt="Screenshot 2025-10-17 at 2 47 02 PM" src="https://github.com/user-attachments/assets/68253cd5-1e28-408f-a0a4-1c88f0db319b" />
 
-
----
-
-### 2. Toy Synthetic Dataset
-Simple two-class setting (N = 4) used for controlled experiments on convergence and reversibility.  
-Distinct target endpoints illustrate how optimization paths diverge and stabilize in low-dimensional geometry.
+### 2) Toy synthetic data  
+Two-class setting (N=4) for controlled tests of convergence and reversibility; distinct endpoints illustrate divergent paths and stabilization.
 
 <img width="1430" height="703" alt="image" src="https://github.com/user-attachments/assets/1ba5a620-1509-49d9-96b2-fc1ec6299aa6" />
 
-
----
-
-### 3. Game-Theoretic Dynamics
-InPCA applied to repeated-game learning dynamics, comparing instantaneous and time-averaged strategies in a 3-D embedding of probability updates.
+### 3) Repeated-game dynamics  
+Probability updates from learning in games; comparison of instantaneous vs. time-averaged strategies in a 3D embedding.
 
 <img width="1019" height="448" alt="image" src="https://github.com/user-attachments/assets/f583ac06-88e6-4c54-b321-7d4bbc37bffc" />
 <img width="1019" height="448" alt="Screenshot 2025-10-17 at 2 53 07 PM" src="https://github.com/user-attachments/assets/03f809a1-c578-46e7-9737-2907f9f99963" />
 
----
-
-## Code Availability
-
-The full implementation includes:
-- Checkpoint collection tools  
-- InPCA embedding computation  
-- 2-D and 3-D visualization interfaces  
-
-The code is **available upon request** for research and educational use.  
-Please contact:
-
-📧 **norahty [at] seas.upenn.edu**
 
 ---
 
@@ -90,4 +83,4 @@ Please contact:
 
 K.N. Quinn, C.B. Clement, F. De Bernardis, M.D. Niemack, & J.P. Sethna, Visualizing probabilistic models and data with Intensive Principal Component Analysis, Proc. Natl. Acad. Sci. U.S.A. 116 (28) 13762-13767, https://doi.org/10.1073/pnas.1817218116 (2019).
 
-Also see my implementation of this paper's partial results at: [https://github.com/norahty/inpca-mnist/tree/main](https://github.com/norahty/inpca-mnist)
+Also see my implementation of this paper's partial results at: [https://github.com/norahty/inpca-mnist](https://github.com/norahty/inpca-mnist)
