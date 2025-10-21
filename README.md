@@ -62,8 +62,9 @@ $\[
 ### 1) Image classification (MNIST)  
 Multiple models trained on different subsets; each curve is the evolution of output probabilities projected into InPCA space.
 
+<img width="1440" height="767" alt="Screenshot 2025-10-21 at 1 07 56 PM" src="https://github.com/user-attachments/assets/1b87e2f3-30d9-4ef6-9505-0c784536a0fa" />
 
-<img width="876" height="452" alt="Screenshot 2025-10-17 at 2 47 02 PM" src="https://github.com/user-attachments/assets/68253cd5-1e28-408f-a0a4-1c88f0db319b" />
+
 
 ### 2) Toy synthetic data  
 Two-class setting (N=4) for controlled tests of convergence and reversibility; distinct endpoints illustrate divergent paths and stabilization.
